@@ -1,0 +1,89 @@
+use company;
+select * from worker;
+
+select first_name,department, salary from worker
+where department = 'admin' or salary >=100000;
+
+select * from worker;
+select worker_id,first_name, department, salary from worker
+where worker_id not in (1,6,7);
+
+select * from worker
+where salary between 100000 and 3000000;
+
+select * from worker
+where salary not between 100000 and 3000000;
+
+select * from worker
+where salary between 100000 and 3000000 and department 
+not in ('hr','admin');
+
+select * from worker where salary between 100000 and 3000000
+and department in ('hr','admin');
+
+select * from worker where department = 'hr' or 'admin';
+
+drop table worker;
+
+CREATE TABLE Worker(
+	WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	FIRST_NAME CHAR(25),
+	LAST_NAME CHAR(25),
+	SALARY INT(15),
+	JOINING_DATE DATETIME,
+	DEPARTMENT CHAR(25)
+);
+
+INSERT INTO Worker 
+	(WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+		(001, 'Monika', 'Arora', 100000, '14-02-20 09.00.00', 'HR'),
+		(002, 'Niharika', 'Verma', 80000, '14-06-11 09.00.00', 'Admin'),
+		(003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR'),
+		(004, 'Amitabh', 'Singh', 500000, '14-02-20 09.00.00', 'Admin'),
+		(005, 'Vivek', 'Bhati', 500000, '14-06-11 09.00.00', 'Admin'),
+		(006, 'Vipul', 'Diwan', 200000, '14-06-11 09.00.00', 'Account'),
+		(007, 'Satish', 'Kumar', 75000, '14-01-20 09.00.00', 'Account'),
+		(008, 'Geetika', 'Chauhan', 90000, '14-04-11 09.00.00', 'Admin');
+
+SELECT * FROM worker WHERE first_name LIKE '_i__a_';
+
+SELECT * FROM Worker WHERE FIRST_NAME NOT LIKE 'A%';
+
+select * from worker;
+select min(salary) from worker; 
+
+select min(salary) from worker where department = 'HR';
+
+select (salary) from worker where department = 'admin';
+
+select min(salary) from worker 
+where department ="admin" and first_name not like '%a%';
+
+select salary from worker
+union
+select salary from worker;
+
+select salary from worker
+union all 
+select salary from worker;
+
+select worker_id as RollNumber from worker;
+select department from worker;
+select distinct(department) from worker;
+
+select worker_id,first_name,
+CASE 
+    when salary > 300000 THEN "Rich people"
+    when salary >= 100000 and salary < 299999 then "middle class people"
+	ELSE "poor"
+END
+AS status
+FROM worker;
+
+select min(salary) from worker where department ='admin';
+select max(salary) from worker where department ='admin';
+
+create view minsalaryAdmin as select min(Salary) from worker;
+create view maxsalaryAdmin as select max(Salary) from worker;
+
+select * from maxsalaryAdmin;
